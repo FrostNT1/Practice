@@ -1,6 +1,3 @@
-"""
-@author: Shivam Tyagi
-"""
 # Importing Libraries to be used in making model
 import numpy as np
 import matplotlib.pyplot as plt
