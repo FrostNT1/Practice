@@ -22,55 +22,22 @@ regressor.summary()
 # Visualizing the model
 y_pred = regressor.predict(exog = X[:, [0, 1, 2, 3, 4, 5]])
 
-actual = plt.scatter(np.array(range(1600)), y, color = 'blue', alpha = 0.4)
-estm = plt.scatter(np.array(range(1600)), y_pred, color = 'orange', alpha = 0.4)
+actual = plt.scatter(np.array(range(1600)), y, color = 'blue', s = 3.5, alpha = 0.8)
+estm = plt.scatter(np.array(range(1600)), y_pred, color = 'orange', s = 3.5, alpha = 0.8)
 plt.title("Train vs Prediction(Using OLS)")
 plt.xlabel("All Features"), plt.ylabel("Target")
 plt.legend((actual, estm), ("Actual Values", "Predicted Values"))
 plt.show()
 
 # Multiple feature graph
-actual = plt.scatter(X_train[:, 0], y, color = 'blue', alpha = 0.2)
-estm = plt.scatter(X_train[:, 0], y_pred, color = 'orange', alpha = 0.2)
-plt.title("Train vs Prediction(Using OLS)")
-plt.xlabel("Features 0 (Const)"), plt.ylabel("Target")
-plt.legend((actual, estm), ("Actual Values", "Predicted Values"))
-plt.show()
-
-actual = plt.scatter(X_train[:, 1], y, color = 'blue', alpha = 0.5)
-estm = plt.scatter(X_train[:, 1], y_pred, color = 'orange', alpha = 0.5)
-plt.title("Train vs Prediction(Using OLS)")
-plt.xlabel("Features 1"), plt.ylabel("Target")
-plt.legend((actual, estm), ("Actual Values", "Predicted Values"))
-plt.show()
-
-actual = plt.scatter(X_train[:, 2], y, color = 'blue', alpha = 0.5)
-estm = plt.scatter(X_train[:, 2], y_pred, color = 'orange', alpha = 0.5)
-plt.title("Train vs Prediction(Using OLS)")
-plt.xlabel("Features 2"), plt.ylabel("Target")
-plt.legend((actual, estm), ("Actual Values", "Predicted Values"))
-plt.show()
-
-actual = plt.scatter(X_train[:, 3], y, color = 'blue', alpha = 0.5)
-estm = plt.scatter(X_train[:, 3], y_pred, color = 'orange', alpha = 0.5)
-plt.title("Train vs Prediction(Using OLS)")
-plt.xlabel("Features 3"), plt.ylabel("Target")
-plt.legend((actual, estm), ("Actual Values", "Predicted Values"))
-plt.show()
-
-actual = plt.scatter(X_train[:, 4], y, color = 'blue', alpha = 0.5)
-estm = plt.scatter(X_train[:, 4], y_pred, color = 'orange', alpha = 0.5)
-plt.title("Train vs Prediction(Using OLS)")
-plt.xlabel("Features 4"), plt.ylabel("Target")
-plt.legend((actual, estm), ("Actual Values", "Predicted Values"))
-plt.show()
-
-actual = plt.scatter(X_train[:, 5], y, color = 'blue', alpha = 0.5)
-estm = plt.scatter(X_train[:, 5], y_pred, color = 'orange', alpha = 0.5)
-plt.title("Train vs Prediction(Using OLS)")
-plt.xlabel("Features 5"), plt.ylabel("Target")
-plt.legend((actual, estm), ("Actual Values", "Predicted Values"))
-plt.show()
+for i in range(6):
+    actual = plt.scatter(X_train[:, i], y, color = 'blue', s = 3.5, alpha = 0.8)
+    estm = plt.scatter(X_train[:, i], y_pred, color = 'orange', s = 3.5, alpha = 0.8)
+    plt.title("Train vs Prediction(Using OLS)")
+    plt.xlabel("Features {}".format(i)), plt.ylabel("Target")
+    plt.legend((actual, estm), ("Actual Values", "Predicted Values"))
+    plt.show()
+    
 
 # Checking Performance of Model
 from sklearn.metrics import mean_squared_error as mse
@@ -82,3 +49,4 @@ rmse = sqrt(error)
 obtain = pd.read_csv("Test.csv")
 obtain = np.append(arr=np.ones((400, 1)).astype(int), values = obtain, axis = 1)
 prediction = regressor.predict(exog = obtain[:, [0,1,2,3,4,5]])
+
