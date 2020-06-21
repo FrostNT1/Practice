@@ -2,12 +2,12 @@
 import pandas as pd
 
 # Importing the dataset
-X_train = pd.read_csv('XTrain.csv')
-X_train = X_train.iloc[:, [0,1,2,4,5,6,7]].values
-X_test = pd.read_csv("XTest.csv")
-X_test = X_test.iloc[:, [0,1,2,4,5,6,7]].values
-y_train = pd.read_csv("YTrain.csv")
-y_train = y_train.iloc[:, :].values
+X = pd.read_csv('XTrain.csv')
+X = X.iloc[:, [0,1,2,4,5,6,7]].values
+y = pd.read_csv("YTrain.csv")
+
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
 
 # Feature Scaling
 from sklearn.preprocessing import StandardScaler
@@ -17,15 +17,18 @@ X_test = sc_X.transform(X_test)
 
 # Fitting Classifier Regression
 from sklearn.neighbors import KNeighborsClassifier
-classifier = KNeighborsClassifier(n_neighbors = 3, p = 2, metric = "minkowski")
-classifier.fit(X_train, y_train.ravel())
+classifier = KNeighborsClassifier(n_neighbors = 5, p = 2, metric = "minkowski")
+classifier.fit(X_train, y_train)
 
 # Predicting test set using classifier
-y_pred = classifier.predict(X_train)
+y_pred = classifier.predict(X_test)
 
 # Making Confusion Matrix
 from sklearn.metrics import confusion_matrix
-cm = confusion_matrix(y_train, y_pred)
+cm = confusion_matrix(y_test, y_pred)
+
+from sklearn.metrics import accuracy_score as s
+print(s(y_test,y_pred))
 
 y_pred = classifier.predict(X_test)
 df = pd.DataFrame(y_pred)
