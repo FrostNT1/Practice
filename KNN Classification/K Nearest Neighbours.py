@@ -30,6 +30,7 @@ cm = confusion_matrix(y_test, y_pred)
 from sklearn.metrics import accuracy_score as s
 print(s(y_test,y_pred))
 
-y_pred = classifier.predict(X_test)
+test = pd.read_csv("Xtest.csv")
+y_pred = classifier.predict(test.iloc[:, [0,1,2,4,5,6,7]].values)
 df = pd.DataFrame(y_pred)
 df.to_csv("Prediction.csv", index = False)
