@@ -35,7 +35,6 @@ classifier.fit(X_train, y_train)
 from sklearn.ensemble import RandomForestClassifier
 classifier = RandomForestClassifier(n_estimators = 100, criterion = "entropy")
 classifier.fit(X_train,y_train)
-y_pred = classifier.predict(X_test)
 
 # Predicting the Test set results
 y_pred = classifier.predict(X_test)
