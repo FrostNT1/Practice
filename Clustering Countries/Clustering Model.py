@@ -51,25 +51,29 @@ kmeans = KMeans(n_clusters = 3, init = 'k-means++',
 y_kmeans = kmeans.fit_predict(X)
 
 # Visualising the clusters
-plt.scatter(X[y_kmeans == 0, 6], X[y_kmeans == 0, 8],
-            s = 25, c = 'red', label = 'Label 1', alpha = 0.5)
-plt.scatter(X[y_kmeans == 1, 6], X[y_kmeans == 1, 8],
-            s = 25, c = 'blue', label = 'Label 2', alpha = 0.5)
-plt.scatter(X[y_kmeans == 2, 6], X[y_kmeans == 2, 8],
-            s = 25, c = 'green', label = 'Label 3', alpha = 0.5)
+col = ["Mortality", "Exports", "Health", "Imports", "Income", "Inflation",
+       "Expectancy", "Fertility", "GDPP"]
+for i in range(9):
+    for j in range(i+1,9):
+        plt.scatter(X[y_kmeans == 0, i], X[y_kmeans == 0, j],
+                    s = 25, c = 'red', label = 'Label 1', alpha = 0.5)
+        plt.scatter(X[y_kmeans == 1, i], X[y_kmeans == 1, j],
+                    s = 25, c = 'blue', label = 'Label 2', alpha = 0.5)
+        plt.scatter(X[y_kmeans == 2, i], X[y_kmeans == 2, j],
+                    s = 25, c = 'green', label = 'Label 3', alpha = 0.5)
+        
+        plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1],
+                    s = 100, c = 'Yellow', label = 'Centroid')
+        plt.title(col[i] +" Vs "+ col[j])
+        plt.xlabel(col[i])
+        plt.ylabel(col[j])
+        plt.legend()
+        plt.show()
 
-plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1],
-            s = 100, c = 'Yellow', label = 'Centroid')
-
-plt.title("Life Expectancy Vs GDP")
-plt.xlabel("Life Expectancy")
-plt.ylabel("GDP")
-plt.legend()
-plt.show()
 
 """
 From the various graphs we have plotted, we see that the countries classified
-under label 1 needs most help followed by label 3. Label 2 countries seem to
+under label 2 needs most help followed by label 3. Label 1 countries seem to
 be doing well on their on their own and do not require any assistance 
 """
 
